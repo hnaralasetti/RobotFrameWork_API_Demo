@@ -1,5 +1,6 @@
 *** Settings ***
 Library  RequestsLibrary
+Library  Collections
 
 *** Variables ***
 ${base_url}     https://reqres.in
@@ -22,3 +23,6 @@ Get_Record
 
     ${body}=     convert to string   ${response.content}
     should contain  ${body}     Lawson
+
+    ${contentTypeValue}=    get from dictionary  ${response.headers}     Content-Type
+    should be equal  ${contentTypeValue}    application/json; charset=utf-8
